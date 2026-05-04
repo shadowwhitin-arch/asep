@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Undangan Asep & Ai</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:linear-gradient(#87CEEB,#fff);
+}
+
+/* SLIDE */
+.slide{
+  display:none;
+  height:100vh;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+}
+.active{display:flex}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.5);
+  padding:20px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+}
+
+/* BUTTON */
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:white;
+  cursor:pointer;
+}
+
+/* NAV */
+.nav{
+  position:fixed;
+  bottom:10px;
+  width:100%;
+  text-align:center;
+}
+.nav button{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  margin:5px;
+}
+
+/* FLOWERS */
+.flower{
+  position:fixed;
+  top:-50px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh)}
+}
+</style>
+</head>
+
+<body>
+
+<div id="flowers"></div>
+
+<!-- COVER -->
+<div class="slide active" id="cover">
+  <img src="cartoon.png" width="150" onerror="this.style.display='none'">
+  <h2>The Wedding of</h2>
+  <h1>Asep & Ai</h1>
+  <p>07 Juni 2026</p>
+  <button onclick="start()">Buka Undangan</button>
+</div>
+
+<!-- SLIDES -->
+<div class="slide" id="slide">
+  <div class="card">
+    <div id="content"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="go(0)"></button>
+  <button onclick="go(1)"></button>
+  <button onclick="go(2)"></button>
+  <button onclick="go(3)"></button>
+</div>
+
+<script>
+let index = 0;
+
+const slides = [
+  `
+  <p>Bismillahirrahmanirrahim</p>
+  <p>Dan di antara tanda kebesaran-Nya...</p>
+  <h2>Asep Ilyas</h2>
+  <h2>&</h2>
+  <h2>Ai Siti Rahmawati</h2>
+  `,
+  `
+  <h2>Acara Pernikahan</h2>
+  <p>Minggu, 07 Juni 2026</p>
+  <p>09:00 WIB</p>
+  `,
+  `
+  <h2>Lokasi</h2>
+  <p>
+  Kampung Citundun RT.003/RW.008<br>
+  Setiawargi, Tamansari<br>
+  Tasikmalaya
+  </p>
+  <iframe width="90%" height="200"
+  src="https://maps.google.com/maps?q=tasikmalaya&t=&z=13&output=embed"></iframe>
+  `,
+  `
+  <h2>Terima Kasih</h2>
+  <p>Atas doa & kehadiran</p>
+  <h2>444401015688504</h2>
+  `
+];
+
+function start(){
+  document.getElementById("cover").style.display="none";
+  document.getElementById("slide").classList.add("active");
+  render();
+}
+
+function go(i){
+  index = i;
+  render();
+}
+
+function render(){
+  const el = document.getElementById("content");
+  el.innerHTML = slides[index];
+}
+
+/* FLOWERS */
+const container = document.getElementById("flowers");
+for(let i=0;i<15;i++){
+  let f=document.createElement("div");
+  f.className="flower";
+  f.innerHTML="❀";
+  f.style.left=Math.random()*100+"vw";
+  f.style.animationDuration=(5+Math.random()*5)+"s";
+  container.appendChild(f);
+}
+</script>
+
+</body>
+</html>
